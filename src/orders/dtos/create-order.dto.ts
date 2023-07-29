@@ -8,12 +8,11 @@ import {
 export class CreateOrderDTO {
     @IsNotEmpty()
     @IsString()
-    @Min(0)
     productId: string;
 
     @IsNotEmpty()
     @IsString()
-    @Length(5, 20)
+    @Length(4, 20)
     client: string;
     
     @IsNotEmpty()

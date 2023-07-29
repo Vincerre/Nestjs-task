@@ -10,16 +10,18 @@ import {
 export class CreateProductDTO {
   @IsNotEmpty()
   @IsString()
-  @Length(10, 20)
+  @Length(3, 20)
   name: string;
 
   @IsNotEmpty()
-  @IsInt()
+  @Transform(({ value }) => {
+    return Number(value);
+  })
   @Min(0)
+  @IsInt()
   price: number;
 
   @IsNotEmpty()
   @IsString()
-  @Transform(({ value }) => (Array.isArray(value) ? value.join(', ') : ''))
   description: string;
 }

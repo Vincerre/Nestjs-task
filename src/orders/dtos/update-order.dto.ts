@@ -8,7 +8,6 @@ import {
   export class UpdateOrderDTO {
       @IsNotEmpty()
       @IsString()
-      @Min(0)
       productId: string;
   
       @IsNotEmpty()
