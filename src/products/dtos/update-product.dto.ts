@@ -3,7 +3,7 @@ import { IsInt, IsNotEmpty, IsString, Length, Min } from 'class-validator';
 
 export class UpdateProductDTO {
   @IsNotEmpty()
-  @Length(5, 20)
+  @Length(5, 40)
   name: string;
 
   @IsNotEmpty()
@@ -16,5 +16,6 @@ export class UpdateProductDTO {
 
   @IsString()
   @IsNotEmpty()
+  @Transform(({ value }) => (Array.isArray(value) ? value.join(', ') : ''))
   description: string;
 }

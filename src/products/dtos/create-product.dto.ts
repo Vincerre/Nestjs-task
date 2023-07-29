@@ -10,7 +10,7 @@ import {
 export class CreateProductDTO {
   @IsNotEmpty()
   @IsString()
-  @Length(3, 20)
+  @Length(3, 40)
   name: string;
 
   @IsNotEmpty()
@@ -23,5 +23,6 @@ export class CreateProductDTO {
 
   @IsNotEmpty()
   @IsString()
+  @Transform(({ value }) => (Array.isArray(value) ? value.join(', ') : ''))
   description: string;
 }

@@ -36,30 +36,48 @@ function getProducts() {
   ];
 }
 
+function getClients() {
+  return [
+    {
+      id: '7ccffe02-db5c-42dd-b791-e1ea202547b0',
+      name: 'John Doe',
+      address: '124 Main Street',
+    },
+    {
+      id: '299d1f62-b94c-4820-bbdb-68badf6d2a6a',
+      name: 'Jane Doe',
+      address: 'Baker Street 12B'
+    },
+    {
+      id: 'e837b5a2-61de-4336-8bc9-5750e93a28be',
+      name: 'Thomas Jefferson',
+      address: '123 Main Street',
+    },
+  ];
+}
+
 function getOrders() {
   return [
     {
       id: 'fd105551-0f0d-4a9f-bc41-c559c8a17260',
-      client: 'John Doe',
-      address: '123 Main Street, London',
       productId: 'fd105551-0f0d-4a9f-bc41-c559c8a17256',
+      clientId: '7ccffe02-db5c-42dd-b791-e1ea202547b0',
     },
     {
       id: 'fd105551-0f0d-4a9f-bc41-c559c8a17261',
-      client: 'Jane Doe',
-      address: '123 Main Street, London',
       productId: 'fd105551-0f0d-4a9f-bc41-c559c8a17256',
+      clientId: '299d1f62-b94c-4820-bbdb-68badf6d2a6a',
     },
     {
       id: 'fd105551-0f0d-4a9f-bc41-c559c8a17262',
-      client: 'Thomas Jefferson',
-      address: 'Baker Street 12B, New York',
       productId: '01c7599d-318b-4b9f-baf7-51f3a936a2d4',
+      clientId: 'e837b5a2-61de-4336-8bc9-5750e93a28be',
     },
   ];
 }
 
 async function seed() {
+
   await Promise.all(
     getProducts().map((product) => {
       return db.product.create({ data: product });
@@ -67,12 +85,21 @@ async function seed() {
   );
 
   await Promise.all(
-    getOrders().map(({ productId, ...orderData }) => {
+    getClients().map((client) => {
+      return db.client.create({ data: client });
+    }),
+  );
+
+  await Promise.all(
+    getOrders().map(({ productId, clientId, ...orderData }) => {
       return db.order.create({
         data: {
           ...orderData,
           product: {
             connect: { id: productId },
+          },
+          client: {
+            connect: { id: clientId },
           },
         },
       });
