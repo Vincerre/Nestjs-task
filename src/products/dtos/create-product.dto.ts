@@ -10,13 +10,10 @@ import {
 export class CreateProductDTO {
   @IsNotEmpty()
   @IsString()
-  @Length(3, 40)
+  @Length(5, 40)
   name: string;
 
   @IsNotEmpty()
-  @Transform(({ value }) => {
-    return Number(value);
-  })
   @Min(0)
   @IsInt()
   price: number;
