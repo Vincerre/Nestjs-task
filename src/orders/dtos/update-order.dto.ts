@@ -2,12 +2,13 @@ import {
     IsNotEmpty,
     IsString,
     Length,
-    Min,
-  } from 'class-validator';
+    IsUUID  
+} from 'class-validator';
   
   export class UpdateOrderDTO {
       @IsNotEmpty()
       @IsString()
+      @IsUUID()
       productId: string;
   
       @IsNotEmpty()
